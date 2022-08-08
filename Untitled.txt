@@ -1,0 +1,162 @@
+PGLNPRIXFJEBQXJD
+The prototype demo for data visualization
+
+The classification model (CNN and RNN) for classifying articles
+
+The NLP preprocessing pipeline
+
+The Topic Modeling for keywords
+
+Capturepig.PNG
+From Katie Potts to Everyone: (11:22 AM)
+ https://sidequestvr.com/ 
+From Elmaan Shikder to Everyone: (11:30 AM)
+ https://www.kaggle.com/qiriro/stress exs903@student.bham.ac.uk 
+From Mohammed Bahja to Everyone: (11:44 AM)
+ https://www.birmingham.ac.uk/staff/profiles/cancer-genomic/mehanna-hisham.aspx 
+
+self-supervised learning or semi-supervised learning
+
+Weekly progress log – End of Week 2, Semester 2
+
+create database matomo;
+create user admin@localhost identified by 'Pengweizhi98';
+grant all privileges on matomo.* to admin@localhost identified by 'Pengweizhi98';
+
+
+
+
+server {
+    listen [::]:80; # remove this if you don't want Matomo to be reachable from IPv6
+    listen 80;
+    server_name matomo.miraclove.com;
+
+    access_log /var/log/nginx/matomo.access.log;
+    error_log /var/log/nginx/matomo.error.log;
+
+    root /var/www/matomo/; 
+    
+    index index.php;
+        
+    ## only allow accessing the following php files
+    location ~ ^/(index|matomo|piwik|js/index).php {
+        include snippets/fastcgi-php.conf;
+        fastcgi_param HTTP_PROXY ""; # prohibit httpoxy: https://httpoxy.org/
+        fastcgi_pass unix:/run/php/php7.2-fpm.sock; 
+    }
+    
+    ## needed for HeatmapSessionRecording plugin
+    location = /plugins/HeatmapSessionRecording/configs.php { 
+        include snippets/fastcgi-php.conf;
+        fastcgi_param HTTP_PROXY "";
+        fastcgi_pass unix:/run/php/php7.2-fpm.sock; 
+    }
+    
+    ## deny access to all other .php files
+    location ~* ^.+\.php$ {
+        deny all;
+        return 403;
+    }
+
+    ## serve all other files normally 
+    location / {
+        try_files $uri $uri/ =404;
+    }
+    
+    ## disable all access to the following directories 
+    location ~ /(config|tmp|core|lang) {
+        deny all;
+        return 403; # replace with 404 to not show these directories exist
+    }
+    location ~ /\.ht {
+        deny  all;
+        return 403;
+    }
+
+    location ~ \.(gif|ico|jpg|png|svg|js|css|htm|html|mp3|mp4|wav|ogg|avi|ttf|eot|woff|woff2|json)$ {
+        allow all;
+        ## Cache images,CSS,JS and webfonts for an hour
+        ## Increasing the duration may improve the load-time, but may cause old files to show after an Matomo upgrade
+        expires 1h;
+        add_header Pragma public;
+        add_header Cache-Control "public";
+    }
+
+    location ~ /(libs|vendor|plugins|misc/user) {
+        deny all;
+        return 403;
+    }
+
+    ## properly display textfiles in root directory
+    location ~/(.*\.md|LEGALNOTICE|LICENSE) {
+        default_type text/plain;
+    }
+}
+
+sudo certbot --nginx --agree-tos --redirect --hsts --staple-ocsp --email pengwz98@qq.com -d matomo.miraclove.com
+
+sudo apt-get install nginx
+
+使用 Django 和 Nginx 搭建个人博客，配置HTTPS
+
+3. Https 加密的配置
+wget https://builds.matomo.org/matomo-latest.zip
+pip install certbot
+
+
+
+
+docker run -t -i ubuntu /bin/bash
+
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>404 Error Page</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">404 Error Page</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="error-page">
+        <h2 class="headline text-warning"> 404</h2>
+
+        <div class="error-content">
+          <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oops! Page not found.</h3>
+
+          <p>
+            We could not find the page you were looking for.
+            Meanwhile, you may <a href="../../index.html">return to dashboard</a> or try using the search form.
+          </p>
+
+          <form class="search-form">
+            <div class="input-group">
+              <input type="text" name="search" class="form-control" placeholder="Search">
+
+              <div class="input-group-append">
+                <button type="submit" name="submit" class="btn btn-warning"><i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.input-group -->
+          </form>
+        </div>
+        <!-- /.error-content -->
+      </div>
+      <!-- /.error-page -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
